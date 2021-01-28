@@ -1,0 +1,28 @@
+apiVersion: batch/v1beta1
+kind: CronJob
+metadata:
+  name: manageiq-org-spaces-purger
+spec:
+  schedule: "1 1 * * *"
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+          - name: manageiq-org-spaces-purger
+            image: docker.io/manageiq/manageiq_org-spaces_purger:latest
+            imagePullPolicy: Always
+            env:
+            - name: SPACES_BUCKET
+              value: releases-manageiq-org
+            - name: SPACES_KEY
+              valueFrom:
+                secretKeyRef:
+                  key: key
+                  name: spaces-secrets
+            - name: SPACES_SECRET
+              valueFrom:
+                secretKeyRef:
+                  key: secret
+                  name: spaces-secrets
+          restartPolicy: OnFailure
