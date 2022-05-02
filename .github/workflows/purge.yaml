@@ -1,0 +1,23 @@
+name: Purge DigitalOcean Spaces
+
+on:
+  workflow_dispatch:
+  schedule:
+  - cron: '0 0 * * *'
+
+jobs:
+  purge-spaces:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up Ruby
+      uses: ruby/setup-ruby@v1
+      with:
+        ruby-version: 3.0
+        bundler-cache: true
+    - name: Run purger
+      run: bin/digital_ocean_spaces_cleanup.rb
+      env:
+        SPACES_BUCKET: releases-manageiq-org
+        SPACES_KEY: {{ secrets.SPACES_KEY }}
+        SPACES_SECRET: {{ secrets.SPACES_SECRET }}
