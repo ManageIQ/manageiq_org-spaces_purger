@@ -19,5 +19,5 @@ jobs:
       run: bin/digital_ocean_spaces_cleanup.rb
       env:
         SPACES_BUCKET: releases-manageiq-org
-        SPACES_KEY: {{ secrets.SPACES_KEY }}
-        SPACES_SECRET: {{ secrets.SPACES_SECRET }}
+        SPACES_KEY: ${{ secrets.SPACES_KEY }}
+        SPACES_SECRET: ${{ secrets.SPACES_SECRET }}
