@@ -1,4 +1,4 @@
-#!/bin/env ruby
+#!/usr/bin/env ruby
 require 'bundler/setup'
 
 def format_key(key)
